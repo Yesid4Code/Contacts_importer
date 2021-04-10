@@ -1,8 +1,4 @@
-<br>Contacts info
 
-<p id="notice"><%= notice %></p>
-<h4>Contacts</h4>
-<%#= link_to "Export CSV", employees_path(format: :csv), class: "btn btn-primary" %>
 <h1>Contacts</h1>
 
 <%= form_tag import_contacts_path, multipart: true do %>
@@ -13,6 +9,40 @@
     <%= submit_tag "Upload CSV file" %>
   </div>
 <% end %>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date of birth</th>
+      <th>Phone</th>
+      <th>Addres</th>
+      <th>Credit card</th>
+      <th>Franchise</th>
+      <th>Email</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.name %></td>
+        <td><%= contact.date_of_birth %></td>
+	<td><%= contact.phone %></td>
+	<td><%= contact.address %></td>
+	<td><%= contact.credit_card %></td>
+	<td><%= contact.franchise %></td>
+	<td><%= contact.email %></td>
+        <td><%= link_to 'Show', root_path %></td>
+        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+        <td><%= link_to 'Delete', contact_path(contact), method: :delete, data: {confirm: "Are you sure?"} %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
 
 <br>
