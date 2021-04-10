@@ -1,0 +1,20 @@
+<br>Contacts info
+
+<p id="notice"><%= notice %></p>
+<h4>Contacts</h4>
+<%#= link_to "Export CSV", employees_path(format: :csv), class: "btn btn-primary" %>
+<h1>Contacts</h1>
+
+<%= form_tag import_contacts_path, multipart: true do %>
+  <div class="form-group">
+    <%= file_field_tag :file %>
+  </div>
+  <div class="form-group">
+    <%= submit_tag "Upload CSV file" %>
+  </div>
+<% end %>
+
+
+<br>
+
+
