@@ -1,19 +1,24 @@
 require 'rails_helper'
 
-RSpec.describe Contact, type: :model do
-  let(:user) { User.create(email: 'user1@gmail.com', :password => '123456')}
-  let(:contact) {
-    Contact.new(
-      name: 'Emma Crespo',
-      #date_of_birth: '1991-11-23',
-      phone: '(+57) 300-345-45-54',
-      address: 'Carrera 5 # 23 - 23, Cali',
-      credit_card: '5568390844958312',
-      #franchise: 'Mastercard',
-      email: 'yesid@lopez.com'
-    )}
-
+RSpec.describe User, type: :model do
+  let(:user) { User.create(email: 'Yesid@gmail.com', :password => '123456')}
+  
   describe 'Relationship with Contact' do
-    it { should belong_to(:contact) }
+    it { should have_many(:contacts) }
+  end
+
+  describe 'Credentials validations' do
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:password) }
+
+    context "when email is  unique" do
+      before { described_class.create!(email: "Yesid@prueba.com", password: "123456") }
+      it { expect(user).to be_valid }
+    end
+    
+    context "when email is not unique" do
+      let { (:user) { User.create(email: "lopera@prueba.com", password: "123456") }
+      it { expect(user).to be_invalid }
+    end
   end
 end
