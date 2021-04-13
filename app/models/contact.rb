@@ -1,10 +1,10 @@
 class Contact < ApplicationRecord
   belongs_to :user
-#  require 'credit_card_validations/string'
   before_save :sanitize_text
+
   NAME_REGEX_VALID = /\A[a-zA-Z\s-]+\z/
   PHONE_REGEX_VALID = /\(\+\d{2}\)\s\d{3}\s\d{3}\s\d{2}\s\d{2}|\(\+\d{2}\)\s\d{3}\-\d{3}\-\d{2}\-\d{2}/
-
+  
   validates_presence_of :name, :date_of_birth, :phone, :address, :credit_card, :franchise, :email, message: "can't be blank"
   validates :name, format: { with: NAME_REGEX_VALID, message: 'Name with special character arent allowed, only "-" is allowed' }
   validate :valid_date_of_birth
@@ -29,8 +29,6 @@ class Contact < ApplicationRecord
       contact.update(contact_info)
     end
   end
-
-
 
   def sanitize_text
     self.name = name.titleize
