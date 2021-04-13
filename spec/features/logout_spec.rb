@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the signin process', type: :feature do
+RSpec.describe 'the signout process', type: :feature do
   before :each do
     User.create(email: 'user1@gmail.com', password: 'password')
   end
