@@ -12,18 +12,8 @@ RSpec.describe Contact, type: :model do
       #franchise: 'Mastercard',
       email: 'yesid@lopez.com'
     )}
-  
-  describe 'Relationship with User' do
-    it { should belong_to(:user) }
-  end
 
-  describe 'Header validations' do
-    it { should validate_presence_of(:name) }
-    #it { should validate_presence_of(:) } #date_of birth
-    #it { should validate_presence_of(:phone)
-    #address
-    #credit_card
-    #franchise
-    #email
+  describe 'Relationship with Contact' do
+    it { should belong_to(:contact) }
   end
 end
