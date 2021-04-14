@@ -8,11 +8,4 @@ class ApplicationRecord < ActiveRecord::Base
       end
     end
   end
-
-  class CreditCardModel
-    attr_accessor :number
-    include ActiveModel::Validations
-    validates :number, presence: true, credit_card_number: true
-    #validates :number, credit_card_number: {brands: [:amex, :maestro]}
-  end
 end

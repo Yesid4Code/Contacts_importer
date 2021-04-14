@@ -1,4 +1,5 @@
 class Contact < ApplicationRecord
+  require 'bcrypt'
   belongs_to :user
   before_save :sanitize_text
 
@@ -10,12 +11,21 @@ class Contact < ApplicationRecord
   validate :valid_date_of_birth
   validates :phone, format: { with: PHONE_REGEX_VALID, message: 'Please include de phone in the next formats: (+57) 320 432 05 09 or (+57) 320-432-05-09'}
   validates :email, email: true, uniqueness: { scope: :user_id, message: "You have a contact with the same email" }
-
-  validates :credit_card, presence: true, credit_card_number: true
+  validate :set_last_digits
+  after_validation :card_encrypted
+  #validates :credit_card, presence: true, credit_card_number: true
 
   
   def valid_date_of_birth
     date = Date.iso8601(date_of_birth)
+  end
+
+  def set_last_digits
+    self.account_number = CreditCard.new(account_number).set_account_number
+  end
+    
+  def card_encrypted
+    self.credit_card = CreditCard.new(credit_card).encrypted
   end
 
   def self.import(file, user)
@@ -28,11 +38,12 @@ class Contact < ApplicationRecord
                                    credit_card: contact_info['credit_card'],
                                    franchise: CreditCardValidations::Detector.new(contact_info['credit_card']).brand_name,
                                    email: contact_info['email'],
-                                   user_id: user.id)
+                                   user_id: user.id,
+                                   account_number: contact_info['credit_card'])
       contact.update(contact_info)
     end
   end
-
+  
   def sanitize_text
     self.name = name.titleize
     self.email = email.downcase
