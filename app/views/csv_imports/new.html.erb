@@ -1,0 +1,19 @@
+<h1>Imported Files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @csv_imports.each do |imported_file| %>
+      <tr>
+        <td><%= imported_file.file_name %></td>
+        <td><%= imported_file.state %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
