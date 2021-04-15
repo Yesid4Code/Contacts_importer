@@ -1,5 +1,27 @@
 class CsvImport < ApplicationRecord
+  include AASM
   belongs_to :user
+
+  aasm column: "state" do
+    state :waiting, initial: true
+    state :processing
+    state :failed
+    state :finished
+
+    
+    event :process do
+      transitions from: :waiting, to: :processing
+    end
+
+    event :finish do
+      transitions from: :processing, to: :finished
+    end
+
+    event :reject do
+      transitions from: :processing, to: :failed
+    end
+  end
+
 
   def self.import(file, user)
     records_failed = []
