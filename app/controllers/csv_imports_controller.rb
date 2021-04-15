@@ -5,9 +5,10 @@ class CsvImportsController < ApplicationController
   end
 
   def new
+    @csv_imports = CsvImport.all
     @csv_import = CsvImport.new
   end
-  
+
   def import
     @csv_import = current_user.csv_imports.build(file_name: params[:file].original_filename)
     @csv_import.save
