@@ -13,7 +13,6 @@
       <th>Franchise</th>
       <th>Email</th>
       <th>Error messages</th>
-      <th colspan="1">Actions</th>
     </tr>
   </thead>
 
@@ -28,10 +27,11 @@
 	<td><%= invalid_contact.franchise %></td>
 	<td><%= invalid_contact.email %></td>
 	<td><%= invalid_contact.error_message %></td>
-        <td><%#= invalid_link_to 'Delete', contact_path(contact), method: :delete, data: {confirm: "Are you sure?"} %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+<%= will_paginate @invalid_records %>
