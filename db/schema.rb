@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_15_063133) do
+ActiveRecord::Schema.define(version: 2021_04_15_154441) do
 
   create_table "contacts", force: :cascade do |t|
     t.string "name"
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 2021_04_15_063133) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "file_name"
     t.string "state"
-    t.text "invalid_record"
     t.index ["user_id"], name: "index_csv_imports_on_user_id"
   end
 
