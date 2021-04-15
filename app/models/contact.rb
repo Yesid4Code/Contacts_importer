@@ -26,6 +26,8 @@ class Contact < ApplicationRecord
   
   def valid_date_of_birth
     date = Date.iso8601(date_of_birth)
+  rescue StandardError
+    errors.add(:date_of_birth, 'Invalid format, it should be: YYYY-MM-DD or YYYYMMDD')
   end
 
   def set_last_digits
