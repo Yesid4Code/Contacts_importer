@@ -1,0 +1,37 @@
+
+<h1>Contacts</h1>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date of birth</th>
+      <th>Phone</th>
+      <th>Addres</th>
+      <th>Credit card</th>
+      <th>Franchise</th>
+      <th>Email</th>
+      <th>Error messages</th>
+      <th colspan="1">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invalid_records.each do |invalid_contact| %>
+      <tr>
+        <td><%= invalid_contact.name %></td>
+        <td><%= invalid_contact.date_of_birth %></td>
+	<td><%= invalid_contact.phone %></td>
+	<td><%= invalid_contact.adress %></td>
+	<td><%= invalid_contact.credit_card %></td>
+	<td><%= invalid_contact.franchise %></td>
+	<td><%= invalid_contact.email %></td>
+	<td><%= invalid_contact.error_message %></td>
+        <td><%#= invalid_link_to 'Delete', contact_path(contact), method: :delete, data: {confirm: "Are you sure?"} %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

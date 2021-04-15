@@ -2,14 +2,14 @@
 <br>
 <div>
   <div>
-    <%= link_to "Login", user_session_path %>
-  </div>
-  <div>
     <%= link_to "Sign Up", new_user_registration_path %>
   </div>
   <div>
-    <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+    <%= link_to "Login", user_session_path %>
   </div>
+  <div>
+    <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+  </div><br><br>
   <div>
     <%= link_to "Home", root_path %>
   </div>
@@ -17,6 +17,6 @@
     <%= link_to "users", users_path %>
   </div>
   <div>
-    <%= link_to "Contacts", contacts_index_path %>
+    <%= link_to "Contacts", contacts_path %>
   </div>
 </div>
