@@ -24,7 +24,7 @@ class CsvImport < ApplicationRecord
 
 
   def import(file, user)
-    records_failed = []
+    flag = 0 # Cero records
     CSV.foreach(file.path, headers: true) do |row|
       contact_info = row.to_h
       contact = Contact.new(
@@ -40,7 +40,7 @@ class CsvImport < ApplicationRecord
         account_number: contact_info['credit_card'])
 
       if contact.save
-        finish!
+        flag = 1 # anless 1 record
       else
         invalid_records = InvalidRecord.new(
           name: contact_info['name'],
@@ -54,8 +54,14 @@ class CsvImport < ApplicationRecord
           user_id: user.id,
           error_message: contact.errors.full_messages.join(', '))
         invalid_records.save
-        reject!
-      end #if
+      end 
+      process! if may_process?
     end #csv
+    
+    if flag == 1
+      finish!
+    else
+      reject!
+    end
   end #method
 end
